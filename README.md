@@ -27,3 +27,5 @@ In order to remedy the lack of practical examples in _TRPL_, I figured I should 
 * [Fahrenheit to Celsius conversion](https://github.com/bhubr/rust-samples/blob/main/fahrenheit/fahrenheit.rs) (from K&R, 1.2)
 * Fibonacci: [recursive/slow](https://github.com/bhubr/rust-samples/blob/main/fibonacci/fibonacci.rs) (from CCSPJ, 1.1)
 * [Count fruits](https://github.com/bhubr/rust-samples/blob/main/count-fruits/count-fruits.rs) (inspired from [this JS exercise](https://github.com/WildCodeSchool/suite01/blob/master/basics/ex10.js))
+* [Coin change](https://github.com/bhubr/rust-samples/blob/main/coin-change/coin-change.rs) (inspired from various code katas)
+* [Split string](https://github.com/bhubr/rust-samples/blob/main/split-string/split-string.rs)
