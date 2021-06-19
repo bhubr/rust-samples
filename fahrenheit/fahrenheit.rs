@@ -1,15 +1,15 @@
-// Topics: variables, loops, constants
+// Topics: variables, constants, loops
 
 fn main() {
-  let lower = 0;
-  let upper = 300;
-  let step = 20;
-  let mut fahr = lower;
+  const UPPER: i32 = 300;
+  const LOWER: i32 = 0;
+  const STEP: i32 = 20;
+  let mut fahr = LOWER;
   let mut celsius;
 
-  while fahr <= upper {
+  while fahr <= UPPER {
     celsius = 5 * (fahr - 32) / 9;
     println!("{}\t{}", fahr, celsius);
-    fahr += step;
+    fahr += STEP;
   }
 }
