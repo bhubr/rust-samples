@@ -1,3 +1,4 @@
+// Source: C Programming Language (K&R, Pearson), section 1.2
 // Topics: variables, constants, loops
 
 fn main() {
