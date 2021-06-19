@@ -1,5 +1,5 @@
 // Source: https://github.com/WildCodeSchool/suite01/blob/master/basics/ex10.js (simplified)
-// Topics: loops, conditionals, vectors, hashmaps
+// Topics: loops, conditionals, arrays, hashmaps
 // Help: https://doc.rust-lang.org/rust-by-example/flow_control/for.html
 use std::collections::HashMap;
 

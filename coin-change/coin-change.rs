@@ -1,5 +1,5 @@
 // Source: ?
-// Topics: loops, conditionals, vectors, hashmaps
+// Topics: loops, conditionals, arrays, hashmaps
 use std::collections::HashMap;
 
 fn main() {
