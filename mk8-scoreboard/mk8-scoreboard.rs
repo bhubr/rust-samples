@@ -18,7 +18,7 @@ struct GrandPrix {
   cup: &'static str,
   positions: Vec<usize>,
   global_score: u32,
-  // global_position: u32
+  global_position: u32
 }
 
 fn parse_positions(positions: &str) -> Vec<usize> {
@@ -41,14 +41,13 @@ fn parse_positions(positions: &str) -> Vec<usize> {
   v
 }
 
-fn encode_positions(v: &Vec<usize>) -> String {
+fn encode_positions(v: &Vec<usize>, sep: char) -> String {
   let mut positions = String::new();
   let max_index = v.len() - 1;
   for (idx, p) in v.iter().enumerate() {
-    println!("p {}", p);
     positions.push_str(&p.to_string());
     if idx < max_index {
-      positions.push('|');
+      positions.push(sep);
     }
   }
   positions
@@ -67,10 +66,26 @@ fn encode_gp_as_csv(gp: &GrandPrix) -> String {
   let mut csv = String::new();
   csv.push_str(gp.cup);
   csv.push(',');
-  csv.push_str(&encode_positions(&gp.positions));
+  csv.push_str(&encode_positions(&gp.positions, '|'));
+  csv.push(',');
+  csv.push_str(&gp.global_position.to_string());
   csv.push(',');
   csv.push_str(&gp.global_score.to_string());
   csv
+}
+
+fn encode_gp_as_json(gp: &GrandPrix) -> String {
+  let mut json = String::new();
+  json.push_str("{\"cup\":\"");
+  json.push_str(gp.cup);
+  json.push_str("\",\"positions\":[");
+  json.push_str(&encode_positions(&gp.positions, ','));
+  json.push_str("],\"global_position\":");
+  json.push_str(&gp.global_position.to_string());
+  json.push_str(",\"global_score\":");
+  json.push_str(&gp.global_score.to_string());
+  json.push_str("}");
+  json
 }
 
 fn main() {
@@ -114,12 +129,23 @@ fn main() {
   let global_score = compute_score(&v);
   println!("Total: {}", global_score);
 
+  println!("Enter your Grand Prix global position (1-12)");
+  let mut global_position = String::new();
+  io::stdin()
+    .read_line(&mut global_position)
+    .expect("Failed to read global position");
+    let global_position: u32 = global_position.trim().parse().unwrap();
+
   let gp = GrandPrix {
     global_score,
     positions: v,
-    cup: cup_label
+    cup: cup_label,
+    global_position
   };
 
   let csv = encode_gp_as_csv(&gp);
   println!("csv: {}", csv);
+
+  let json = encode_gp_as_json(&gp);
+  println!("json: {}", json);
 }
