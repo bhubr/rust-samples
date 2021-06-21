@@ -69,6 +69,15 @@ fn read_csv_as_contacts_vector(file_name: &str) -> Vec<Contact>  {
   v
 }
 
+fn ask_user(msg: &str) -> String {
+  let mut s = String::new();
+  println!("{}", msg);
+  io::stdin()
+      .read_line(&mut s)
+      .expect("Failed to read command");
+  s.trim().to_string()
+}
+
 fn main() -> std::io::Result<()> {
     let file_name = "address-book.csv";
     create_file_if_not_exists(&file_name);
@@ -78,13 +87,7 @@ fn main() -> std::io::Result<()> {
 
     while true {
 
-        let mut cmd = String::new();
-        println!("Enter command:\n   c -> Show contacts\n   q -> Quit\n <x> -> Edit contact <x>");
-        io::stdin()
-            .read_line(&mut cmd)
-            .expect("Failed to read command");
-        cmd = cmd.trim().to_string();
-
+        let cmd = ask_user("Enter command:\n   c -> Show contacts\n   q -> Quit\n <x> -> Edit contact <x>");
         // https://turreta.com/2019/09/07/rust-how-to-compare-strings/
         if cmd.eq("c") {
           println!(">> Showing contacts");
@@ -100,19 +103,8 @@ fn main() -> std::io::Result<()> {
             println!(">> Index {} is too big", contact_idx);
           } else {
             println!(">> Show contact {} -> {:?}", contact_idx, v[contact_idx]);
-            let mut subcmd = String::new();
-            println!("Enter subcommand:\n   n -> Edit name   \n   e -> Edit email\n   p -> Edit phone");
-            io::stdin()
-                .read_line(&mut subcmd)
-                .expect("Failed to read subcommand");
-            subcmd = subcmd.trim().to_string();
-
-            let mut value = String::new();
-            println!("Enter value:");
-            io::stdin()
-                .read_line(&mut value)
-                .expect("Failed to read value");
-                value = value.trim().to_string();
+            let subcmd = ask_user("Enter subcommand:\n   n -> Edit name   \n   e -> Edit email\n   p -> Edit phone");
+            let value = ask_user("Enter value:");
             if subcmd.eq("n") {
               v[contact_idx].name = value;
             } else if subcmd.eq("e") {
@@ -123,7 +115,6 @@ fn main() -> std::io::Result<()> {
           }
         }
     }
-
 
     Ok(())
 }
