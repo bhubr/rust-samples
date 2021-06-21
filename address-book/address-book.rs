@@ -79,7 +79,7 @@ fn main() -> std::io::Result<()> {
     while true {
 
         let mut cmd = String::new();
-        println!("Enter your command:\n   c -> Show contacts\n   q -> Quit\n <x> -> Edit contact <x>");
+        println!("Enter command:\n   c -> Show contacts\n   q -> Quit\n <x> -> Edit contact <x>");
         io::stdin()
             .read_line(&mut cmd)
             .expect("Failed to read command");
@@ -100,6 +100,22 @@ fn main() -> std::io::Result<()> {
             println!(">> Index {} is too big", contact_idx);
           } else {
             println!(">> Show contact {} -> {:?}", contact_idx, v[contact_idx]);
+            let mut subcmd = String::new();
+            println!("Enter subcommand:\n   n -> Edit name   \n   e -> Edit email\n   p -> Edit phone");
+            io::stdin()
+                .read_line(&mut subcmd)
+                .expect("Failed to read subcommand");
+            subcmd = subcmd.trim().to_string();
+
+            let mut value = String::new();
+            println!("Enter value:");
+            io::stdin()
+                .read_line(&mut value)
+                .expect("Failed to read value");
+                value = value.trim().to_string();
+            if subcmd.eq("e") {
+              v[contact_idx].email = value;
+            }
           }
         }
     }
