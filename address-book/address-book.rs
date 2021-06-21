@@ -113,8 +113,12 @@ fn main() -> std::io::Result<()> {
                 .read_line(&mut value)
                 .expect("Failed to read value");
                 value = value.trim().to_string();
-            if subcmd.eq("e") {
+            if subcmd.eq("n") {
+              v[contact_idx].name = value;
+            } else if subcmd.eq("e") {
               v[contact_idx].email = value;
+            } else if subcmd.eq("p") {
+              v[contact_idx].phone = value;
             }
           }
         }
