@@ -78,6 +78,16 @@ fn ask_user(msg: &str) -> String {
   s.trim().to_string()
 }
 
+fn update_user(v: &mut Vec<Contact>, idx: usize, field: String, value: String) {
+  if field.eq("n") {
+    v[idx].name = value;
+  } else if field.eq("e") {
+    v[idx].email = value;
+  } else if field.eq("p") {
+    v[idx].phone = value;
+  }
+}
+
 fn main() -> std::io::Result<()> {
     let file_name = "address-book.csv";
     create_file_if_not_exists(&file_name);
@@ -103,15 +113,9 @@ fn main() -> std::io::Result<()> {
             println!(">> Index {} is too big", contact_idx);
           } else {
             println!(">> Show contact {} -> {:?}", contact_idx, v[contact_idx]);
-            let subcmd = ask_user("Enter subcommand:\n   n -> Edit name   \n   e -> Edit email\n   p -> Edit phone");
+            let field = ask_user("Enter subcommand:\n   n -> Edit name   \n   e -> Edit email\n   p -> Edit phone");
             let value = ask_user("Enter value:");
-            if subcmd.eq("n") {
-              v[contact_idx].name = value;
-            } else if subcmd.eq("e") {
-              v[contact_idx].email = value;
-            } else if subcmd.eq("p") {
-              v[contact_idx].phone = value;
-            }
+            update_user(&mut v, contact_idx, field, value);
           }
         }
     }
